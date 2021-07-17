@@ -1,16 +1,11 @@
 require 'thor'
-require 'thoring'
 
 
-module Thoring
+module Toolbox
   class CLI < Thor
-
     def self.exit_on_failure?
       true 
     end  
-
-    
-
     def self.global_options
       method_option :verbose,
                     aliases: ['-v', '--verbose'],
@@ -32,12 +27,12 @@ module Thoring
     end
 
     desc 'command <command arg>', 'Example command'
-    global_options
     def command(command_arg)
-      puts "my command one" 
+      puts @namespace
+      puts "my command " 
     end
-
   end
+
 
 end
 

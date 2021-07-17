@@ -1,7 +1,7 @@
 require 'logger'
 require 'pathname'
 
-module Thoring # :nodoc:
+module Toolbox # :nodoc:
   #
   # Singleton with global helpers
   #
@@ -35,7 +35,7 @@ module Thoring # :nodoc:
     # @return [Logger]
     #
     def default_logger(v = nil)
-      v = Thoring.verbose  if v.nil?
+      v = Toolbox.verbose  if v.nil?
       logger = Logger.new(STDOUT)
       logger.level = Logger::INFO
       logger.level = Logger::DEBUG if v
@@ -61,8 +61,8 @@ module Thoring # :nodoc:
   end
 end
 
-Thoring.verbose = ENV['VERBOSE'] ? true : false
-Thoring.dry = ENV['DRY'] ? true : false
+Toolbox.verbose = ENV['VERBOSE'] ? true : false
+Toolbox.dry = ENV['DRY'] ? true : false
 
 
-Thoring.logger = Thoring.default_logger
+Toolbox.logger = Toolbox.default_logger
