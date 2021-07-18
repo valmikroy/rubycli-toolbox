@@ -21,10 +21,10 @@ module Toolbox
                     default: false
     end
 
-    desc 'command <command arg>', 'Example command'
-    def command(_command_arg)
-      puts @namespace
-      puts 'my command '
-    end
+    #    desc 'command <command arg>', 'Example command'
+    #    def command(_command_arg)
+    #      puts @namespace
+    #      puts 'my command '
+    #    end
   end
 end

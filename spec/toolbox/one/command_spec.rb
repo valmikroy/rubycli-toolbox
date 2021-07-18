@@ -20,13 +20,12 @@ describe 'one' do
   let(:tmpl) { IO.read("#{File.dirname(__FILE__)}/resources/example.erb") }
 
   it '#call' do
-    expect{ c.call }
+    expect { c.call }
       .to output(/INFO -- : Command one with blah/)
       .to_stdout_from_any_process
   end
 
-  it '#render_tmpl' do
-    expect(c.render_tmpl(data, tmpl).split("\n")[1]).to eq('host="host2" port="port2" type="type2"')
+  it '#render' do
+    expect(c.render(data, tmpl).split("\n")[1]).to eq('host="host2" port="port2" type="type2"')
   end
-
 end

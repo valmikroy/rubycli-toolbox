@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require 'mixlib/shellout'
+require 'erb'
 
 require 'toolbox'
 
 module Toolbox
   module Helper #:nodoc:
+    module_function # avoid Mixin
+
     def log_info(msg)
       Toolbox.logger.info(msg)
     end

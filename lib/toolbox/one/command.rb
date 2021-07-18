@@ -19,6 +19,10 @@ module Toolbox
         log_info("Option #{options[:dry]}")
         log_info("Option #{options[:verbose]}")
       end
+
+      def render(data, tmpl)
+        render_tmpl(data, tmpl)
+      end
     end
   end
 end

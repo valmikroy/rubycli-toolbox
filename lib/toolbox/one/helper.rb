@@ -5,6 +5,8 @@ require 'toolbox/helper'
 module Toolbox
   module One
     module Helper #:nodoc:
+      module_function
+
       include Toolbox::Helper
 
       def take_action_a(arg)
