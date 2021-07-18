@@ -10,12 +10,12 @@ describe 'helper' do
     [
       'host1:port1:type1',
       'host2:port2:type2',
-      'host3:port3:type3',
+      'host3:port3:type3'
     ]
-  end  
+  end
 
-  let(:tmpl) { IO.read(File.dirname(__FILE__) + '/resources/example.erb' ) }
+  let(:tmpl) { IO.read("#{File.dirname(__FILE__)}/resources/example.erb") }
   it 'render_tmpl' do
-    expect(render_tmpl(data,tmpl).split("\n")[1]).to eq('host="host2" port="port2" type="type2"')
+    expect(render_tmpl(data, tmpl).split("\n")[1]).to eq('host="host2" port="port2" type="type2"')
   end
 end
