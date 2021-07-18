@@ -9,7 +9,24 @@ describe 'one' do
     Toolbox::One::Command.new('blah', { dry: true, verbose: true })
   end
 
-  it '#call' do
-    expect(c.call).to eq(true)
+  let(:data) do
+    [
+      'host1:port1:type1',
+      'host2:port2:type2',
+      'host3:port3:type3'
+    ]
   end
+
+  let(:tmpl) { IO.read("#{File.dirname(__FILE__)}/resources/example.erb") }
+
+  it '#call' do
+    expect{ c.call }
+      .to output(/INFO -- : Command one with blah/)
+      .to_stdout_from_any_process
+  end
+
+  it '#render_tmpl' do
+    expect(c.render_tmpl(data, tmpl).split("\n")[1]).to eq('host="host2" port="port2" type="type2"')
+  end
+
 end
