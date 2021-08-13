@@ -5,6 +5,81 @@ Signal.trap('INT') { exit 1 }
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), %w[.. lib])
 
 require 'rubygems'
-require 'thoring/cli/one'
 
-Thoring::CLIOne.start(ARGV)
+require 'thor'
+require 'thor/group'
+
+require 'toolbox/helper'
+
+module Toolbox
+  module Templatize
+    class Create < Thor::Group
+      include Thor::Actions
+      include Toolbox::Helper
+
+      namespace :create
+
+      argument :toolname,
+               type: :string,
+               required: true
+
+      class << self
+        def source_root
+          File.join(Toolbox.source_root, 'resources/toolbox/skeleton')
+        end
+      end
+
+      def create_files
+        template('bin/tool.erb', "#{target_path}/bin/tools/#{snake_name}", template_options)
+        File.chmod(0o755, "#{target_path}/bin/tools/#{snake_name}")
+
+        template('lib/tool.rb.erb', "#{target_path}/lib/toolbox/#{snake_name}.rb", template_options)
+
+        template('lib/tool/cli.rb.erb', "#{target_path}/lib/toolbox/#{snake_name}/cli.rb", template_options)
+        template('lib/tool/command.rb.erb', "#{target_path}/lib/toolbox/#{snake_name}/command.rb", template_options)
+        template('lib/tool/error.rb.erb', "#{target_path}/lib/toolbox/#{snake_name}/error.rb", template_options)
+        template('lib/tool/helper.rb.erb', "#{target_path}/lib/toolbox/#{snake_name}/helper.rb", template_options)
+
+        template('spec/toolbox/tool/command_spec.rb.erb', "#{target_path}/spec/toolbox/#{snake_name}/command_spec.rb",
+                 template_options)
+        copy_file('spec/toolbox/tool/resources/example.erb.erb',
+                  "#{target_path}/spec/toolbox/#{snake_name}/resources/example.erb")
+      end
+
+      private
+
+      def target_path
+        @target_path ||= Toolbox.source_root
+      end
+
+      def template_options
+        @template_options ||= { name: toolname }
+      end
+
+      # def resource_path(*args)
+      #  Toolbox.source_root.join('resources/toolbox/skeleton', *args).to_s
+      # end
+
+      def name_components
+        @_name_components ||= toolname.scan(/[\w_]+/)[0].split(/_/)
+      end
+
+      def snake_name
+        @_snake_name ||= name_components.map(&:downcase).join('_')
+      end
+
+      def camel_name
+        @_camel_name ||= name_components.map(&:capitalize).join('')
+      end
+    end
+  end
+
+  class CLI < Thor
+    def self.exit_on_failure?
+      true
+    end
+    register(Templatize::Create, 'create', 'create <toolname>', 'Initialize new tool')
+  end
+end
+
+Toolbox::CLI.start(ARGV)
