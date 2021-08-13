@@ -1,17 +1,14 @@
 # This is the configuration used to check the rubocop source code.
-
 inherit_from: .rubocop_todo.yml
+
 require:
   - rubocop/cop/internal_affairs
   - rubocop-rspec
 
 AllCops:
-  Exclude:
-    - 'vendor/**/*'
-    - 'spec/fixtures/**/*'
-    - 'tmp/**/*'
   TargetRubyVersion: 2.7
   SuggestExtensions: false
+
 
 Naming/PredicateName:
   # Method define macros for dynamically generated method.
@@ -35,7 +32,7 @@ Layout/EndOfLine:
   EnforcedStyle: lf
 
 Layout/HeredocIndentation:
-  EnforcedStyle: powerpack
+  Enabled: true
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
