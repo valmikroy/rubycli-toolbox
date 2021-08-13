@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+require 'toolbox/cli'
+require 'toolbox/<%= snake_name %>/command'
+
+module Toolbox
+  module <%= camel_name %>
+    class CLI < Toolbox::CLI #:nodoc:
+      desc '<%= snake_name %>_command <command arg>', ' <%= camel_name %> command'
+      global_options
+      def <%= snake_name %>_command(command_arg)
+        Toolbox::<%= camel_name %>::Command.new(command_arg, options).call
+      end
+    end
+  end
+end
