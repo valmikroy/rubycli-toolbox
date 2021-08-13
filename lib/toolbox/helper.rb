@@ -6,7 +6,7 @@ require 'erb'
 require 'toolbox'
 
 module Toolbox
-  module Helper #:nodoc:
+  module Helper # :nodoc:
     module_function # avoid Mixin
 
     def log_info(msg)
@@ -49,23 +49,13 @@ module Toolbox
       include ERB::Util
       attr_accessor :data, :template
 
-      #
-      # Initialize with Ruby hash and template string to render. Hash
-      # data structure is coupled will its use in the ERB template.
-      #
-      # @params[Hash,String]
-      #
       def initialize(data, template)
         @data = data
         @template = template
       end
 
-      #
-      # Returns rendered string
-      # @return[String]
-      #
       def render
-        ERB.new(@template, nil, '-').result(binding)
+        ERB.new(@template, trim_mode: '-').result(binding)
       end
     end
 
