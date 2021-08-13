@@ -6,7 +6,7 @@ require 'toolbox/<%= snake_name %>/command'
 
 describe '<%= snake_name %>' do
   subject(:c) do
-    Toolbox::<%= camel_name %>::Command.new('blah_command', 'useful_argument', { dry: true, verbose: true })
+    Toolbox::<%= camel_name %>::Command.new('useful_argument', { dry: true, verbose: true })
   end
 
   let(:data) do
@@ -21,7 +21,7 @@ describe '<%= snake_name %>' do
 
   it '#call' do
     expect { c.call }
-      .to output(/INFO -- : Command with blah/)
+      .to output(/INFO -- : Command with useful_argument/)
       .to_stdout_from_any_process
   end
 
