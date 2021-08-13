@@ -4,7 +4,7 @@ require 'toolbox/<%= snake_name %>/helper'
 
 module Toolbox
   module <%= camel_name %>
-    class Command #:nodoc:
+    class Command # :nodoc:
       include Toolbox::<%= camel_name %>::Helper
 
       attr_reader :options, :argument

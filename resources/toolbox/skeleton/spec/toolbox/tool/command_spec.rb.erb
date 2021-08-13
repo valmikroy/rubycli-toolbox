@@ -4,7 +4,7 @@ require_relative '../../spec_helper'
 
 require 'toolbox/<%= snake_name %>/command'
 
-describe '<%= snake_name %>' do
+describe 'Toolbox::<%= camel_name %>::Command' do
   subject(:c) do
     Toolbox::<%= camel_name %>::Command.new('useful_argument', { dry: true, verbose: true })
   end
